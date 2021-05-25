@@ -1,25 +1,44 @@
-
+import 'antd/dist/antd.css';
 import './App.css';
-import MainPage from './main/index.js';
-import MainPageComponent from './main/index.js';
-import { Switch, Route } from 'react-router-dom';
+import MainPageComponent from './main';
+import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import UploadPage from './upload';
-import ProductPage from './product'
+import ProductPage from './product';
+import { Button } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons'
 
 function App() {
-  return <div>
-    <Switch>
-      <Route exact={true} path={"/"}>
-        <MainPageComponent />
-      </Route>
-      <Route exact={true} path="/products/:id">
-        <ProductPage />
-      </Route>
-      <Route exact={true} path="/upload">
-        <UploadPage />
-      </Route>
-    </Switch>
-  </div>;
+  const history = useHistory();
+  return (
+    <div>
+      <div id="header">
+        <div id="header-area">
+          <Link to="/">
+            <img src="/images/icons/logo.png" alt="img" />
+          </Link>
+          <Button size="large" onClick={function () {
+            history.push('/upload');
+          }}
+            icon={<DownloadOutlined />}>
+            상품 업로드
+          </Button>
+        </div>
+      </div>
+      <div id="body">
+        <Switch> <Route exact={true} path={"/"}>
+          <MainPageComponent />
+        </Route>
+          <Route exact={true} path="/products/:id">
+            <ProductPage />
+          </Route>
+          <Route exact={true} path="/upload">
+            <UploadPage />
+          </Route>
+        </Switch>
+      </div>
+      <div id="footer"></div>
+    </div>
+  );
 }
 
 export default App;
